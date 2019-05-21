@@ -8,17 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping("/customers/get")
+    @GetMapping("/get")
     public ResponseEntity<Iterable<Customer>> getCustomers() {
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/customers/create")
+    @PostMapping("/create")
     public String createCustomer (@RequestBody Customer customers) {
         Customer mCustomer = new Customer();
         mCustomer.setFirstName(customers.getFirstName());
