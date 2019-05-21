@@ -34,10 +34,7 @@ public class CustomerController {
         customerRepository.save(mCustomer);
 
         String token = jwtTokenProvider.createToken(customers.getFirstName());
-        Map<Object, Object> returnObject = new HashMap<>();
-        returnObject.put("username", customers.getFirstName());
-        returnObject.put("token", token);
-        return String.valueOf(returnObject);
+        return token;
     }
 
 }
