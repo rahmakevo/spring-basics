@@ -24,7 +24,7 @@ public class CustomerController {
     @GetMapping("/customers/get")
     public ResponseEntity <List<Customer>> getCustomers() {
         Customer mCustomer = new Customer();
-        mCustomer.setId(customerId);
+        mCustomer.setId(Long.valueOf(customerId));
         mCustomer.setFirstName("FirstName "+ customerId);
         mCustomer.setLastName("LastName "+ customerId);
         customer.add(mCustomer);
