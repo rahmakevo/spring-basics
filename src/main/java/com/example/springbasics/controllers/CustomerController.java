@@ -29,7 +29,7 @@ public class CustomerController {
     public ResponseEntity<Customer> createCustomer (@RequestBody Customer customers) {
         customers.setId(String.valueOf(customerId));
         customer.add(customers);
-        return new ResponseEntity<>((Customer) customer, HttpStatus.OK);
+        return new ResponseEntity(customer, HttpStatus.OK);
     }
 
 }
