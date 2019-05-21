@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/customers")
 public class CustomerController {
 
@@ -19,7 +19,7 @@ public class CustomerController {
     private static List<Customer> customer = new ArrayList<>();
 
     @Autowired
-    CustomerRepository repository;
+    private CustomerRepository repository;
 
     @GetMapping("/customers/get")
     public ResponseEntity <List<Customer>> getCustomers() {
