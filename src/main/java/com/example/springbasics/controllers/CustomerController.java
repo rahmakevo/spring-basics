@@ -27,7 +27,6 @@ public class CustomerController {
 
     @PostMapping("/customers/create")
     public List<Customer> createCustomer (@RequestBody Customer customers) {
-        customers.setId(String.valueOf(customerId));
         customer.add(customers);
         return customer;
     }
