@@ -5,8 +5,7 @@ import com.example.springbasics.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class CustomerController {
     private static List<Customer> customer = new ArrayList<>();
 
     @Autowired
-    private CustomerRepository repository;
+    private CustomerRepository customerRepository;
 
     @GetMapping("/customers/get")
     public ResponseEntity <List<Customer>> getCustomers() {
@@ -38,7 +37,7 @@ public class CustomerController {
         mCustomer.setLastName(customers.getLastName());
         mCustomer.setEmail(customers.getEmail());
         mCustomer.setPassword(customers.getPassword());
-        repository.save(mCustomer);
+        customerRepository.save(mCustomer);
         return customer;
     }
 
