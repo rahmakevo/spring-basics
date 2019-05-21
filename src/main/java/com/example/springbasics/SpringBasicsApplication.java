@@ -2,8 +2,10 @@ package com.example.springbasics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"com.example.springbasics.controllers", "com.example.springbasics.model", "com.example.springbasics.repository"})
+@SpringBootApplication
+@EnableJpaRepositories("com.example.springbasics.repository")
 public class SpringBasicsApplication {
 
 	public static void main(String[] args) {
