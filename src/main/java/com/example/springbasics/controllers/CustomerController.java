@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customers")
 public class CustomerController {
 
     private static int customerId = 0;
