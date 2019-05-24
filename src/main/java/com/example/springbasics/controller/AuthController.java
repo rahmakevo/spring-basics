@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
 
-@RestController("/basics")
+@RestController("/api/auth")
 public class AuthController {
 
     @Autowired
