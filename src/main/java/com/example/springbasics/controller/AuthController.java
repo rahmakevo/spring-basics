@@ -6,6 +6,8 @@ import com.example.springbasics.model.Role;
 import com.example.springbasics.model.RoleName;
 import com.example.springbasics.model.User;
 import com.example.springbasics.payload.ApiResponse;
+import com.example.springbasics.payload.JwtAuthenticationResponse;
+import com.example.springbasics.payload.LoginRequests;
 import com.example.springbasics.payload.SignUpRequest;
 import com.example.springbasics.repository.RoleRepository;
 import com.example.springbasics.repository.UserRepository;
@@ -13,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +32,9 @@ import java.util.Collections;
 public class AuthController {
 
     @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -34,6 +42,25 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtTokenProvider tokenProvider;
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequests loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
@@ -64,7 +91,5 @@ public class AuthController {
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
 
     }
-
-
 
 }
